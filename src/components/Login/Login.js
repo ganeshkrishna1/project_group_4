@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import './Login.css'
 
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    userType: 'user', // Default user type is 'user'
   });
-
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -17,33 +17,42 @@ function Login() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  const validatePassword = (password) => {
+    return password.length >= 8; // Minimum password length is 8 characters
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Validate email and password
-    if (!formData.email || !formData.password) {
-      setError('Email and password are required.');
-      return;
-    }
-
-    // Basic email validation using a regular expression
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(formData.email)) {
+    if (!validateEmail(formData.email)) {
       setError('Invalid email address.');
       return;
     }
 
-    try {
-      const response = await axios.post('http://localhost:8081/login/user', formData);
+    if (!validatePassword(formData.password)) {
+      setError('Password must be at least 8 characters.');
+      return;
+    }
 
+    try {
+      const response = await axios.post('http://localhost:8081/login', formData);
       if (response.status === 200) {
-        // Successfully logged in
-        navigate('/homepage'); // Redirect to the homepage
+        // Successful login, redirect based on userType
+        if (formData.userType === 'user') {
+          navigate('/homepage'); // Redirect to the homepage for users
+        } else {
+          navigate('/landlordpage'); // Redirect to the landlord page for landlords
+        }
       } else {
-        setError(response.data.message || 'Invalid Credentials');
+        setError('Invalid Credentials');
       }
     } catch (err) {
-      setError('Invalid Credentials'); 
+      setError('Invalid Credentials');
       console.error(err);
     }
   };
@@ -52,35 +61,25 @@ function Login() {
     <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email<span className="required">*</span></label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required // Email is required
-            className="form-control"
-          />
+        <div className="form-group"> <label htmlFor="email"> Email<span className="required">*</span> </label>
+          <input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="form-control" />
+        </div>
+        <div className="form-group"> <label htmlFor="password"> Password <span className="required">*</span>
+          </label> <input type="password" name="password" value={formData.password} onChange={handleInputChange} required className="form-control"/>
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password<span className="required">*</span></label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required // Password is required
-            className="form-control"
-          />
+          <label>User Type:</label>
+          <label> <input type="radio" name="userType" value="user" checked={formData.userType === 'user'} onChange={handleInputChange}/> User </label>
+          <label>
+            <input type="radio" name="userType" value="landlord" checked={formData.userType === 'landlord'}  onChange={handleInputChange}/> Landlord
+          </label>
         </div>
-        <button type="submit" className="btn btn-primary">Login</button>
+        <button type="submit" className="btn btn-primary">
+          Login
+        </button>
+        <button type="button" onClick={() => navigate('/signup')} className="btn btn-secondary" > Sign Up </button>
         {error && <p className="error">{error}</p>}
       </form>
-      <p>
-        Are you a landlord?{' '}
-        <a href="/landlordlogin">Login as a Landlord</a>
-      </p>
     </div>
   );
 }

@@ -13,15 +13,14 @@ function Signup() {
     confirmPassword: '',
     userType: '',
   });
-  
+
   const [errors, setErrors] = useState({});
   const [error, setError] = useState('');
-  const Navigate=useNavigate();
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-
+  const Navigate=useNavigate();
   const validateForm = () => {
     const newErrors = {};
 
@@ -47,13 +46,15 @@ function Signup() {
     // Validate Contact No (Required and should contain only numbers)
     if (!formData.contactNo.trim()) {
       newErrors.contactNo = 'Contact No is required';
-    } else if (!/^[0-9]+$/.test(formData.contactNo)) {
-      newErrors.contactNo = 'Contact No should contain only numbers';
+    } else if (!/^[0-9]{10}$/.test(formData.contactNo)) {
+      newErrors.contactNo = 'Contact No must be 10 digits containing only numbers';
     }
 
-    // Validate Password (Required)
+    // Validate Password (Required and at least 8 characters long)
     if (!formData.password.trim()) {
       newErrors.password = 'Password is required';
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
     }
 
     // Validate Confirm Password (Required and must match Password)
@@ -74,21 +75,24 @@ function Signup() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (validateForm()) {
       try {
         const response = await axios.post(`http://localhost:8081/signup`, formData);
         if (response.status === 200) {
           console.log("Success");
-          Navigate("/login");
-          
+          setError('Signup successful'); // Set a success message
+          // You can use a timeout to display the success message for a few seconds before navigating
+          setTimeout(() => {
+            setError(''); // Clear the success message
+            Navigate('/login'); // Navigate to the login page
+          }, 3000); // Display the success message for 3 seconds (adjust as needed)
         }
       } catch (err) {
         setError('An error occurred during signup.');
         console.error(err);
       }
     }
-  };
+  };  
 
   return (
     <div className="signup-container">
