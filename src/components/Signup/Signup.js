@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Signup.css';
-
+import { useNavigate ,Link} from 'react-router-dom';
 function Signup() {
   const [formData, setFormData] = useState({
     firstname: '',
@@ -16,7 +16,7 @@ function Signup() {
   
   const [errors, setErrors] = useState({});
   const [error, setError] = useState('');
-
+  const Navigate=useNavigate();
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -80,6 +80,8 @@ function Signup() {
         const response = await axios.post(`http://localhost:8081/signup`, formData);
         if (response.status === 200) {
           console.log("Success");
+          Navigate("/login");
+          
         }
       } catch (err) {
         setError('An error occurred during signup.');
@@ -189,7 +191,10 @@ function Signup() {
           </select>
           {errors.userType && <p className="error">{errors.userType}</p>}
         </div>
-        <button type="submit">Signup</button>
+        <button type="submit" >Signup</button>
+                <Link to='/login' type='button' id='loginButton'  className='btn btn-primary rounded-0'>
+                  Login
+                </Link>
         {error && <p className="error">{error}</p>}
       </form>
     </div>
