@@ -106,6 +106,7 @@ function Signup() {
             name="firstname"
             value={formData.firstname}
             onChange={handleInputChange}
+            placeholder='Enter firstname'
             required
           />
           {errors.firstname && <p className="error">{errors.firstname}</p>}
@@ -116,6 +117,7 @@ function Signup() {
             type="text"
             id="lastname"
             name="lastname"
+            placeholder='Enter lastname'
             value={formData.lastname}
             onChange={handleInputChange}
           />
@@ -127,6 +129,7 @@ function Signup() {
             id="username"
             name="username"
             value={formData.username}
+            placeholder='Enter username'
             onChange={handleInputChange}
             required
           />
@@ -139,6 +142,7 @@ function Signup() {
             id="email"
             name="email"
             value={formData.email}
+            placeholder='Enter email'
             onChange={handleInputChange}
             required
           />
@@ -150,6 +154,7 @@ function Signup() {
             type="text"
             id="contactNo"
             name="contactNo"
+            placeholder='Enter phone number'
             value={formData.contactNo}
             onChange={handleInputChange}
             required
@@ -162,6 +167,7 @@ function Signup() {
             type="password"
             id="password"
             name="password"
+            placeholder='Enter password'
             value={formData.password}
             onChange={handleInputChange}
             required
@@ -174,6 +180,7 @@ function Signup() {
             type="password"
             id="confirmPassword"
             name="confirmPassword"
+            placeholder='Confirm Password'
             value={formData.confirmPassword}
             onChange={handleInputChange}
             required
@@ -195,8 +202,8 @@ function Signup() {
           </select>
           {errors.userType && <p className="error">{errors.userType}</p>}
         </div>
-        <button type="submit" >Signup</button>
-                <Link to='/login' type='button' id='loginButton'  className='btn btn-primary rounded-0'>
+        <button type="submit" id="signup1" className="btn btn-primary">Signup</button>
+                <Link to='/login' type='button' id='loginButton'  className="btn btn-primary">
                   Login
                 </Link>
         {error && <p className="error">{error}</p>}

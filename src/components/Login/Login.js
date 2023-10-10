@@ -62,22 +62,22 @@ function Login() {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group"> <label htmlFor="email"> Email<span className="required">*</span> </label>
-          <input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="form-control" />
+          <input type="email" name="email" value={formData.email} placeholder='Enter email' onChange={handleInputChange} required className="form-control" />
         </div>
         <div className="form-group"> <label htmlFor="password"> Password <span className="required">*</span>
-          </label> <input type="password" name="password" value={formData.password} onChange={handleInputChange} required className="form-control"/>
+          </label> <input type="password" name="password" value={formData.password} placeholder='Enter Password' onChange={handleInputChange} required className="form-control"/>
         </div>
-        <div className="form-group">
-          <label>User Type:</label>
-          <label> <input type="radio" name="userType" value="user" checked={formData.userType === 'user'} onChange={handleInputChange}/> User </label>
+        <div className="form-button" id="rb">
+          <label>User Type : </label>
+          <label> <input type="radio" name="userType" value="user" id="user" checked={formData.userType === 'user'} onChange={handleInputChange}/> User </label>
           <label>
-            <input type="radio" name="userType" value="landlord" checked={formData.userType === 'landlord'}  onChange={handleInputChange}/> Landlord
+            <input type="radio" name="userType" value="landlord" id="landlord" checked={formData.userType === 'landlord'}  onChange={handleInputChange}/> Landlord
           </label>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" id="login">
           Login
         </button>
-        <button type="button" onClick={() => navigate('/signup')} className="btn btn-secondary" > Sign Up </button>
+        <button type="button" onClick={() => navigate('/signup')} className="btn btn-secondary" id="signup"> Sign Up </button>
         {error && <p className="error">{error}</p>}
       </form>
     </div>
