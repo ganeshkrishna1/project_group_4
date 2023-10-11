@@ -1,6 +1,7 @@
 /* Add this CSS to your stylesheets */
 .login-container {
-  max-width: 800px; /* Increased from 600px */
+  max-width: 600px; /* Increased from 600px */
+  margin-top: auto;
   margin: 3rem auto; /* Slightly decreased top and bottom margins to fit larger containers on average screens */
   padding: 4rem; /* Increased from 3rem */
   border: 4px solid grey; /* Slightly thicker border */
@@ -72,7 +73,7 @@ input[type="radio"] {
   background-color: rgb(193, 0, 71);
   color: #fff;
   border: none;
-  margin-left: 28%;
+  margin-left: 48%;
 }
 
 #signup:hover {
@@ -99,11 +100,3 @@ input[type="radio"] {
   margin-right: 6px; /* Slightly increased spacing */
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f0f0f0;
-}

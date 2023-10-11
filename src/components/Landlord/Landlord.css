@@ -1,0 +1,38 @@
+/* Landlord component */
+.navbar {
+    background-color: #343a40; /* Navbar background color */
+    width: 100%; /* Make the navbar span the entire page */
+  }
+  
+  .navbar a {
+    color: #fff; /* Navbar link color */
+  }
+  
+  .container {
+    padding-top: 20px; /* Add some space below the navbar */
+  }
+  
+  .property-details {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .property {
+    flex: 0 0 calc(33.33% - 20px);
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .property h3 {
+    color: #333;
+  }
+  
+  .property p {
+    color: #666;
+  }
+  
+  /* Add more CSS styles as needed */
+  
