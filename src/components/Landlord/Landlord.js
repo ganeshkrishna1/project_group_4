@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import "./Landlord.css"
 function Landlord() {
   const [formData, setFormData] = useState({
     landlord_id: '', // Initialize landlord_id as an empty string
