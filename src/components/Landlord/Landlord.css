@@ -1,5 +1,5 @@
 .landlord-container {
-  width: 80%;
+  width: 50%;
   margin: 20px auto;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@ textarea {
   resize: vertical;
 }
 
-button {
+#landlordSubmit {
   display: block;
   width: 100%;
   padding: 10px;
@@ -54,11 +54,11 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
-  background-color: #0056b3;
+#landlordSubmit:hover {
+  background-color:green;
 }
 
-button:active {
+#landlordSubmit:active {
   background-color: #003d80;
   transform: scale(0.98);
 }

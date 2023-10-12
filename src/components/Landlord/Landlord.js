@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./Landlord.css"
+import NavigationBar from '../Navigation/NavigationBar';
 function Landlord() {
   const [formData, setFormData] = useState({
     landlord_id: '', // Initialize landlord_id as an empty string
@@ -63,6 +64,8 @@ function Landlord() {
   };
 
   return (
+    <div>
+    <NavigationBar/>
     <div className="landlord-container">
       <h2>Add Property</h2>
       <form onSubmit={handleSubmit}>
@@ -142,8 +145,9 @@ function Landlord() {
             required
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" id="landlordSubmit">Submit</button>
       </form>
+    </div>
     </div>
   );
 }
