@@ -179,6 +179,18 @@ app.get('/properties', (req, res) => {
   });
 });
 
+app.get('/displayproperties', (req, res) => {
+  // Query the database to retrieve property information based on landlord_id
+  const sql = 'SELECT * FROM properties';
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error fetching properties:', err);
+      return res.status(500).json({ error: 'Failed to fetch properties.' });
+    }
+    res.json(result); // Return the list of properties as JSON
+  });
+});
+
 // Delete a property by property_id
 app.delete('/propertiesdelete/:property_id', (req, res) => {
   const propertyId = req.params.property_id;
