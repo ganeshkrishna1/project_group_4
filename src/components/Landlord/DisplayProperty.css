@@ -1,47 +1,47 @@
-.property-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10rem;
-  }
-  
-  .property-card {
-    display: flex;
-    background-color: #f4f4f4;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    margin: 10px;
-  }
-  
-  .property-image {
-    width: 60%; /* Adjust the width as needed */
-  }
-  
-  .property-image img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .property-details {
-    width: 60%; /* Adjust the width as needed */
-    padding-left: 20px;
-  }
-  
-  .property-details button {
-    margin: 10px; /* Add margin between buttons */
-    padding: 10px 20px; /* Add some padding to buttons */
-    border: none;
-    background-color: #007BFF;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
+.disproperty-list {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  .property-details button:hover {
-    background-color: #0056b3;
-  }
+.disproperty-card {
+  display: flex;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin: 10px;
+  margin-right: auto;
+  margin-bottom: 20px;
 
-  
+}
+
+.disproperty-image {
+  width: 60%; /* Adjust the width as needed */
+}
+
+.disproperty-image img {
+max-width: 100%;
+height: auto;
+}
+
+.disproperty-details {
+  width: 60%; /* Adjust the width as needed */
+  padding-left: 20px;
+}
+
+.disproperty-details button {
+  margin: 10px; /* Add margin between buttons */
+  padding: 10px 20px; /* Add some padding to buttons */
+  border: none;
+  background-color: #007BFF;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.disproperty-details button:hover {
+background-color: #0056b3;
+}

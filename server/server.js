@@ -291,3 +291,17 @@ app.put('/properties/edit/:property_id', upload.single('image'), (req, res) => {
     res.status(200).json({ message: 'Property updated successfully.' });
   });
 });
+
+
+app.post('/submit-report', (req, res) => {
+  const { user_id, report_type, report_text } = req.body;
+  const reportData = {user_id, report_type, report_text,};
+  con.query('INSERT INTO reports SET ?', reportData, (err, result) => {
+    if (err) {
+      console.error('Error inserting report into the database: ' + err);
+      res.status(500).json({ error: 'Failed to submit report' });
+    } else {
+      res.status(201).json({ message: 'Report submitted successfully' });
+    }
+  });
+});

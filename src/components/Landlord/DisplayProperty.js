@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './DisplayProperty.css'; 
+import './DisplayProperty.css';
 import LandlordNav from '../LandlordNav/LandlordNav';
 
 function DisplayProperty() {
   const [properties, setProperties] = useState([]);
-  const landlordId = localStorage.getItem('landlordId'); 
+  const landlordId = localStorage.getItem('landlordId');
   const navigate = useNavigate();
 
   useEffect(() => {
     if (landlordId) {
       // Fetch property information for a specific landlord_id from the server
-      axios.get(`http://localhost:8081/properties?landlord_id=${landlordId}`)
+      axios
+        .get(`http://localhost:8081/properties?landlord_id=${landlordId}`)
         .then((response) => {
           setProperties(response.data);
         })
@@ -23,9 +24,7 @@ function DisplayProperty() {
   }, [landlordId]); // Add landlordId as a dependency to run the effect when it changes
 
   const handleEdit = (propertyId) => {
-    // Implement the edit action based on the propertyId
-    // You can navigate to an edit page or perform any other action you need.
-    navigate(`/edit-property/${propertyId}`); // Redirect to an edit page with the propertyId
+    navigate(`/edit-property/${propertyId}`); 
   };
 
   const handleDelete = async (propertyId) => {
@@ -33,7 +32,7 @@ function DisplayProperty() {
       const response = await axios.delete(`http://localhost:8081/propertiesdelete/${propertyId}`);
       if (response.status === 200) {
         alert('Property deleted successfully.');
-        window.location.reload(); 
+        window.location.reload();
       } else {
         alert('Failed to delete the property.');
       }
@@ -46,13 +45,13 @@ function DisplayProperty() {
   return (
     <div>
       <LandlordNav />
-      <div className="property-list">
+      <div className="disproperty-list">
         {properties.map((property) => (
-          <div key={property.property_id} className="property-card">
-            <div className="property-image">
+          <div key={property.property_id} className="disproperty-card">
+            <div className="disproperty-image">
               <img src={`http://localhost:8081/${property.image_path}`} alt="Property" />
             </div>
-            <div className="property-details">
+            <div className="disproperty-details">
               <h3>Property ID: {property.property_id}</h3>
               <p>Property Type: {property.property_type}</p>
               <p>Property Name: {property.property_name}</p>

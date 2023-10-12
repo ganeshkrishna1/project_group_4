@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavigationBar from '../Navigation/NavigationBar';
-import './HomePage.css'; // Import the CSS file
+import './HomePage.css';
 
 function HomePage() {
   const [properties, setProperties] = useState([]);
@@ -18,23 +18,23 @@ function HomePage() {
   }, []);
 
   return (
-    <div>
+    <div className="homepage">
       <NavigationBar />
       <br />
       <br />
       <center>
         <h1>Welcome to RentalApplication!!!</h1>
       </center>
-      <div className="property-list">
+      <div className="homepage-property-list">
         {properties.map((property) => (
-          <div key={property.property_id} className="property-card">
-            <img src={`http://localhost:8081/${property.image_path}`} alt="Property" />
-            <h3>Property ID: {property.property_id}</h3>
-            <p>Property Type: {property.property_type}</p>
-            <p>Rent: {property.rent}</p>
-            <p>Bedrooms: {property.bedrooms}</p>
-            <p>Max Members: {property.max_members}</p>
-            <p>Description: {property.description}</p>
+          <div key={property.property_id} className="homepage-property-card">
+            <img src={`http://localhost:8081/${property.image_path}`} alt="Property" className="homepage-property-image" />
+            <h3 className="homepage-property-title">Property ID: {property.property_id}</h3>
+            <p className="homepage-property-info">Property Type: {property.property_type}</p>
+            <p className="homepage-property-info">Rent: {property.rent}</p>
+            <p className="homepage-property-info">Bedrooms: {property.bedrooms}</p>
+            <p className="homepage-property-info">Max Members: {property.max_members}</p>
+            <p className="homepage-property-description">Description: {property.description}</p>
           </div>
         ))}
       </div>
