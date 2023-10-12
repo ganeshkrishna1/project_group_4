@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2023 at 10:49 AM
+-- Generation Time: Oct 12, 2023 at 08:29 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -55,6 +55,7 @@ CREATE TABLE `properties` (
   `property_id` int(11) NOT NULL,
   `landlord_id` int(11) NOT NULL,
   `property_type` varchar(50) NOT NULL,
+  `property_name` varchar(120) NOT NULL,
   `location` varchar(100) NOT NULL,
   `rent` decimal(10,2) NOT NULL,
   `bedrooms` int(11) NOT NULL,
@@ -67,8 +68,10 @@ CREATE TABLE `properties` (
 -- Dumping data for table `properties`
 --
 
-INSERT INTO `properties` (`property_id`, `landlord_id`, `property_type`, `location`, `rent`, `bedrooms`, `max_members`, `description`, `image_path`) VALUES
-(10, 1, 'apartment', 'beside apartment', 30.00, 3, 3, 'good', 'uploads\\image-1697013031199.jpg');
+INSERT INTO `properties` (`property_id`, `landlord_id`, `property_type`, `property_name`, `location`, `rent`, `bedrooms`, `max_members`, `description`, `image_path`) VALUES
+(10, 1, 'apartment', 'Osama Property', 'beside apartment', 35.00, 3, 3, 'good', 'uploads\\image-1697091598102.jpg'),
+(13, 1, 'apartment', 'Yahoo properties', 'beside apartment', 50.00, 2, 3, 'good', 'uploads\\image-1697089864973.jpg'),
+(14, 1, 'Room', 'Osama', 'New Jersey', 600.00, 6, 4, 'Good Atmosphere', 'uploads\\image-1697090024470.jpg');
 
 -- --------------------------------------------------------
 
@@ -132,7 +135,7 @@ ALTER TABLE `landlords`
 -- AUTO_INCREMENT for table `properties`
 --
 ALTER TABLE `properties`
-  MODIFY `property_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `property_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
 import "./Landlord.css"
-import NavigationBar from '../Navigation/NavigationBar';
+import LandlordNav from '../LandlordNav/LandlordNav';
+
 function Landlord() {
   const [formData, setFormData] = useState({
     landlord_id: '', // Initialize landlord_id as an empty string
     property_type: '',
+    property_name:'',
     location: '',
     rent: '',
     bedrooms: '',
@@ -13,6 +16,7 @@ function Landlord() {
     description: '',
   });
   const [image, setImage] = useState(null);
+  const navigate = useNavigate(); // Initialize the useNavigate hook
 
   useEffect(() => {
     // Retrieve landlordId from localStorage when the component mounts
@@ -41,6 +45,7 @@ function Landlord() {
     const formDataToSend = new FormData();
     formDataToSend.append('landlord_id', formData.landlord_id);
     formDataToSend.append('property_type', formData.property_type);
+    formDataToSend.append('property_name', formData.property_name);
     formDataToSend.append('location', formData.location);
     formDataToSend.append('rent', formData.rent);
     formDataToSend.append('bedrooms', formData.bedrooms);
@@ -56,6 +61,7 @@ function Landlord() {
       });
       if (response.status === 200) {
         alert('Property added successfully.');
+        navigate('/propertydisplay'); // Navigate to the DisplayProperty page
       }
     } catch (err) {
       console.error(err);
@@ -65,7 +71,7 @@ function Landlord() {
 
   return (
     <div>
-    <NavigationBar/>
+    <LandlordNav />
     <div className="landlord-container">
       <h2>Add Property</h2>
       <form onSubmit={handleSubmit}>
@@ -76,6 +82,17 @@ function Landlord() {
             id="property_type"
             name="property_type"
             value={formData.property_type}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="property_name">Property Name</label>
+          <input
+            type="text"
+            id="property_name"
+            name="property_name"
+            value={formData.property_name}
             onChange={handleInputChange}
             required
           />
