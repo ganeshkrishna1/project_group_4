@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2023 at 08:29 AM
+-- Generation Time: Oct 13, 2023 at 04:57 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -76,6 +76,29 @@ INSERT INTO `properties` (`property_id`, `landlord_id`, `property_type`, `proper
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reports`
+--
+
+CREATE TABLE `reports` (
+  `report_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `report_type` varchar(50) DEFAULT NULL,
+  `report_text` text DEFAULT NULL,
+  `reported_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reports`
+--
+
+INSERT INTO `reports` (`report_id`, `user_id`, `report_type`, `report_text`, `reported_at`) VALUES
+(1, 3, 'Fraud', 'asdasd', '2023-10-12 14:26:19'),
+(2, 3, 'Fraud', 'asd', '2023-10-12 14:26:26'),
+(3, 3, 'Fraud', 'sasd', '2023-10-12 14:49:40');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -116,6 +139,13 @@ ALTER TABLE `properties`
   ADD KEY `landlord_id` (`landlord_id`);
 
 --
+-- Indexes for table `reports`
+--
+ALTER TABLE `reports`
+  ADD PRIMARY KEY (`report_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -138,6 +168,12 @@ ALTER TABLE `properties`
   MODIFY `property_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `reports`
+--
+ALTER TABLE `reports`
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -152,6 +188,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `properties`
   ADD CONSTRAINT `properties_ibfk_1` FOREIGN KEY (`landlord_id`) REFERENCES `landlords` (`landlord_id`);
+
+--
+-- Constraints for table `reports`
+--
+ALTER TABLE `reports`
+  ADD CONSTRAINT `reports_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
