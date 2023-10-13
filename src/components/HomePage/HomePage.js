@@ -23,7 +23,7 @@ function HomePage() {
       <br />
       <br />
       <center>
-        <h1>Welcome to RentalApplication!!!</h1>
+        <h1>Welcome to Accomodation Connect!</h1>
       </center>
       <div className="homepage-property-list">
         {properties.map((property) => (

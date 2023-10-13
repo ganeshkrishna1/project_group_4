@@ -12,7 +12,7 @@ function NavigationBar() {
 
   return (
     <nav className="navbar">
-      <a href="/homepage" className="nav-brand">RentalApplication</a>
+      <a href="/homepage" className="nav-brand">Accomodation Connect</a>
       <ul className="nav-menu">
         <li><a href="/homepage">Home</a></li>
         <li><a href="/about">About</a></li>
