@@ -13,7 +13,7 @@ function LandlordNav() {
 
   return (
     <nav className="navbar">
-      <a href="/landlordpage" className="nav-brand">RentalApplication</a>
+      <a href="/landlordpage" className="nav-brand">Accomodation Connect</a>
       <ul className="nav-menu">
         <li><a href="/landlordpage">Add Property</a></li>
         <li><a href="/propertydisplay">Property</a></li>
