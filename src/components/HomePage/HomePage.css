@@ -2,17 +2,20 @@
 .homepage {
   text-align: center;
   padding: 20px;
+  background-color: #f4f4f4; /* A light background for the page */
 }
 
 .homepage h1 {
-  font-size: 1.5em;
+  font-size: 2em; /* A slightly larger size for the heading */
   margin: 20px 0;
+  color: #333; /* Darker color for better visibility */
 }
 
 .homepage-property-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between; /* Even spacing between cards */
+  padding: 20px 0; /* Some vertical spacing for the list */
 }
 
 .homepage-property-card {
@@ -21,59 +24,52 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 10px;
-  width: calc(50% - 20px); /* Two cards per row with some margin */
+  width: calc(50% - 20px); 
   overflow: hidden;
   transition: transform 0.2s;
   display: flex;
-  flex-direction: column; /* Display details below the image */
+  flex-direction: column; /* Image on top, details at the bottom */
 }
 
 .homepage-property-card:hover {
   transform: scale(1.02);
-}
-/* CSS for the homepage property card */
-.homepage-property-card {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 10px;
-  display: flex; /* Display details in a row */
-  align-items: center; /* Center details vertically */
-  transition: transform 0.2s;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2); /* A deeper shadow on hover */
 }
 
 /* CSS for the property image */
 .homepage-property-image {
-  max-width: 100%;
+  width: 100%; 
   height: auto;
-  border-radius: 8px;
-  margin-right: 20px; /* Add space between image and details */
+  border-top-left-radius: 8px; /* Rounded corners on top */
+  border-top-right-radius: 8px; 
+  object-fit: cover; /* Ensures images cover the allotted space without distortion */
 }
 
 /* CSS for the property details */
 .homepage-property-details {
-  flex: 1; /* Expand to fill available space */
+  flex: 1; /* Allow details to occupy available space */
+  padding: 15px; /* Padding inside the details area */
 }
 
 /* CSS for the property title */
 .homepage-property-title {
-  font-size: 1.5em;
+  font-size: 1.4em; 
   margin: 0;
   padding: 0;
+  color: #333;
 }
 
 /* CSS for property info */
 .homepage-property-info {
   font-size: 1.2em;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 10px; /* Add space between info lines */
+  margin: 10px 0; /* Some margin between title, info, and description */
+  color: #555; /* Slightly lighter color than title */
 }
 
 /* CSS for property description */
 .homepage-property-description {
-  font-size: 1.2em;
-  margin: 0;
-  padding: 0;
+  font-size: 1em;
+  margin: 10px 0;
+  color: #777; /* Light color for a subtle appearance */
+  line-height: 1.5; /* Better readability for descriptions */
 }
