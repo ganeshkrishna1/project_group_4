@@ -303,3 +303,30 @@ app.get('/property/:property_id', (req, res) => {
     res.json(property);
   });
 });
+
+app.post('/verify', (req, res) => {
+  const { user_id, propertyId, passportNumber, usSinceDate } = req.body;
+  if (!user_id || !propertyId || !passportNumber || !usSinceDate) {
+    return res.status(400).json({ error: 'User ID, property ID, passport number, and US since date are required.' });
+  }
+  const insertQuery = 'INSERT INTO verification (user_id, property_id, passport_number, us_since_date) VALUES (?, ?, ?, ?)';
+  con.query(insertQuery, [user_id, propertyId, passportNumber, usSinceDate], (err, result) => {
+    if (err) {
+      console.error('Error inserting verification data:', err);
+      return res.status(500).json({ error: 'Failed to store verification data.' });
+    }
+    res.status(200).json({ message: 'Verification data stored successfully' });
+  });
+});
+
+
+app.get('/seniorscontact', (req, res) => {
+  const sql = ` SELECT users.user_id, users.firstname, users.lastname, users.email, users.contact_no, verification.us_since_date FROM users INNER JOIN verification ON users.user_id = verification.user_id`;
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error fetching seniors contact data:', err);
+      return res.status(500).json({ error: 'Failed to fetch data.' });
+    }
+    res.json(result);
+  });
+});
