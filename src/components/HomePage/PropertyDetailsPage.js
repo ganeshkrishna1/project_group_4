@@ -47,8 +47,9 @@ function PropertyDetailsPage() {
   }
 
   return (
+    <div>      <NavigationBar />
+
     <div className="propertydetailspage-container">
-      <NavigationBar />
       <h2 className="propertydetailspage-title">Booking</h2>
       <div className="propertydetailspage-details">
         <div className="propertydetailspage-image-container">
@@ -76,6 +77,9 @@ function PropertyDetailsPage() {
           </p>
           <p>
             <strong>Max Members:</strong> {propertyDetails.max_members}
+          </p>
+          <p>
+            <strong>Contact:</strong> {propertyDetails.contact_no}
           </p>
           <p>
             <strong>Description:</strong> {propertyDetails.description}
@@ -117,6 +121,7 @@ function PropertyDetailsPage() {
           <button onClick={handleVerificationSubmit}>Submit Verification</button>
         </div>
       )}
+    </div>
     </div>
   );
 }

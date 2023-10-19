@@ -1,10 +1,11 @@
 /* CSS for HomePage */
 .homepage {
-  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  background-color: #f4f4f4; /* A light background for the page */
+  background-color: #f9f9f9; /* A slightly off-white background for the whole page */
+  text-align: center;
 }
-
 .homepage h1 {
   font-size: 2em; /* A slightly larger size for the heading */
   margin: 20px 0;
@@ -51,13 +52,7 @@
   padding: 15px; /* Padding inside the details area */
 }
 
-/* CSS for the property title */
-.homepage-property-title {
-  font-size: 1.4em; 
-  margin: 0;
-  padding: 0;
-  color: #333;
-}
+
 
 /* CSS for property info */
 .homepage-property-info {
@@ -72,4 +67,62 @@
   margin: 10px 0;
   color: #777; /* Light color for a subtle appearance */
   line-height: 1.5; /* Better readability for descriptions */
+}
+/* Basic styling for the Connect button */
+.Connect {
+  background-color: #2980b9; /* A cool blue */
+  color: #ffffff; /* White text color */
+  border: none; /* Removes the default border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px; /* Top-bottom padding and left-right padding */
+  font-size: 1em; /* Font size */
+  cursor: pointer; /* Makes the mouse cursor look clickable */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions for hover effects */
+  outline: none; /* Removes the default outline */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* A subtle shadow */
+  display: inline-block; /* Makes the button inline-block so you can control width, if necessary */
+  text-align: center; /* Centers the text inside */
+  margin-bottom: 5%;
+}
+
+/* Hover effect for the Connect button */
+.Connect:hover {
+  background-color: green; /* A slightly lighter blue on hover */
+  transform: translateY(-2px); /* Moves the button up a bit */
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1); /* A bigger shadow on hover */
+}
+
+/* Active state (when the button is clicked) */
+.Connect:active {
+  background-color: #247aa9; /* A slightly darker blue when active (clicked) */
+  transform: translateY(0px); /* Resets the translateY */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Resets the shadow to the original state */
+}
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.location-input {
+  padding: 10px 15px;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #e0e0e0;
+  outline: none;
+  font-size: 1em;
+}
+
+.search-button {
+  padding: 10px 15px;
+  border-radius: 0 5px 5px 0;
+  border: 1px solid #2980b9;
+  background-color: black;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 2%;
+}
+
+.search-button:hover {
+  background-color: #3498db;
 }
