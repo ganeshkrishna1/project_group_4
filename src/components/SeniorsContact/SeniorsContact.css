@@ -2,7 +2,7 @@
 .seniors-contact-container {
     margin: 20px;
     padding: 20px;
-    background-color: #f7f7f7;
+    background-color: black;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
@@ -10,6 +10,7 @@
   .seniors-contact-title {
     font-size: 24px;
     margin-bottom: 20px;
+    color: white;
   }
   
   .seniors-contact-list {

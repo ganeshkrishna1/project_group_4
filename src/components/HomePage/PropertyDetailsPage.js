@@ -50,7 +50,7 @@ function PropertyDetailsPage() {
     <div>      <NavigationBar />
 
     <div className="propertydetailspage-container">
-      <h2 className="propertydetailspage-title">Booking</h2>
+      <h2 className="propertydetailspage-title">Confirm & Pay</h2>
       <div className="propertydetailspage-details">
         <div className="propertydetailspage-image-container">
           <img
@@ -118,7 +118,7 @@ function PropertyDetailsPage() {
               onChange={(e) => setUsSinceDate(e.target.value)}
             />
           </p>
-          <button onClick={handleVerificationSubmit}>Submit Verification</button>
+          <button onClick={handleVerificationSubmit} class="Connect">Submit Verification</button>
         </div>
       )}
     </div>
