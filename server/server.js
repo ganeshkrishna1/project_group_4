@@ -113,26 +113,6 @@ app.post('/signup', (req, res) => {
   });
 
 
-/* // Create an API endpoint to handle property image uploads
-app.post('/properties/add', upload.single('image'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'No file uploaded.' });
-  }
-  const imagePath = req.file.path;
-  const { landlord_id, property_type, location, rent, bedrooms, max_members, description } = req.body;
-
-  // Save the imagePath in the 'properties' table
-  const sql = 'INSERT INTO properties (landlord_id, property_type, location, rent, bedrooms, max_members, description, image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-  const values = [landlord_id, property_type, location, rent, bedrooms, max_members, description, imagePath];
-
-  con.query(sql, values, (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to upload property.' });
-    }
-    res.json({ success: 'Property uploaded successfully.' });
-  });
-}); */
-
 // Create an API endpoint to handle property image uploads
 app.post('/properties/add', upload.single('image'), (req, res) => {
   if (!req.file) {
@@ -180,21 +160,21 @@ app.get('/properties', (req, res) => {
 });
 
 app.get('/displayproperties', (req, res) => {
-  // Query the database to retrieve property information based on landlord_id
-  const sql = 'SELECT * FROM properties';
+  // Query the database to retrieve property information with landlord contact_no
+  const sql = 'SELECT p.*, l.contact_no AS contact_no FROM properties p JOIN landlords l ON p.landlord_id = l.landlord_id';
   con.query(sql, (err, result) => {
     if (err) {
       console.error('Error fetching properties:', err);
       return res.status(500).json({ error: 'Failed to fetch properties.' });
     }
-    res.json(result); // Return the list of properties as JSON
+    res.json(result); // Return the list of properties with landlord contact_no as JSON
   });
 });
+
 
 // Delete a property by property_id
 app.delete('/propertiesdelete/:property_id', (req, res) => {
   const propertyId = req.params.property_id;
-
   con.query('DELETE FROM properties WHERE property_id = ?', [propertyId], (err, result) => {
     if (err) {
       console.error('Error deleting property:', err);
@@ -303,5 +283,23 @@ app.post('/submit-report', (req, res) => {
     } else {
       res.status(201).json({ message: 'Report submitted successfully' });
     }
+  });
+});
+
+app.get('/property/:property_id', (req, res) => {
+  const propertyId = req.params.property_id;
+  // Query the database to retrieve the property information based on property_id
+  const sql = ` SELECT  p.*, l.contact_no FROM properties p INNER JOIN landlords l ON p.landlord_id = l.landlord_id WHERE p.property_id = ?`;  
+  con.query(sql, [propertyId], (err, result) => {
+    if (err) {
+      console.error('Error fetching property:', err);
+      return res.status(500).json({ error: 'Failed to fetch property.' });
+    }
+    if (result.length === 0) {
+      return res.status(404).json({ error: 'Property not found.' });
+    }
+    // Property data found, return it as JSON
+    const property = result[0];
+    res.json(property);
   });
 });

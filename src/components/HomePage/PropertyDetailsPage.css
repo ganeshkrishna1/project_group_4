@@ -1,0 +1,44 @@
+.propertydetailspage-container {
+    padding: 10px;
+  }
+  
+  .propertydetailspage-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .propertydetailspage-details {
+    display: flex;
+  }
+  
+  .propertydetailspage-image-container {
+    flex: 1;
+  }
+  
+  .propertydetailspage-image {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .propertydetailspage-info {
+    flex: 2;
+    padding-left: 20px;
+  }
+  
+  .propertydetailspage-info p {
+    margin-bottom: 10px;
+  }
+  
+  .propertydetailspage-info strong {
+    font-weight: bold;
+  }
+  
+  .propertydetailspage-loading-message {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  
+  

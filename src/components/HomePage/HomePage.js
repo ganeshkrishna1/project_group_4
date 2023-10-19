@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavigationBar from '../Navigation/NavigationBar';
+import { Link } from 'react-router-dom'; // Import Link from React Router
 import './HomePage.css';
 
 function HomePage() {
@@ -34,7 +35,9 @@ function HomePage() {
             <p className="homepage-property-info">Rent: {property.rent}</p>
             <p className="homepage-property-info">Bedrooms: {property.bedrooms}</p>
             <p className="homepage-property-info">Max Members: {property.max_members}</p>
+            <p className="homepage-property-info">Contact Number: {property.contact_no}</p>
             <p className="homepage-property-description">Description: {property.description}</p>
+            <Link to={`/property/${property.property_id}`}>Book</Link> {/* Link to the property details page */}
           </div>
         ))}
       </div>

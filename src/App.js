@@ -5,6 +5,7 @@ import Landlord from './components/Landlord/Landlord';
 import DisplayProperty from './components/Landlord/DisplayProperty';
 import EditProperty from './components/Landlord/EditProperty';
 import Report from './components/Report/Report';
+import PropertyDetailsPage from './components/HomePage/PropertyDetailsPage';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/report" element={<Report />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/property/:propertyId" element={<PropertyDetailsPage />} />
       </Routes>
     </BrowserRouter>
   );
