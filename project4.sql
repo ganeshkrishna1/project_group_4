@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2023 at 04:57 AM
+-- Generation Time: Oct 19, 2023 at 07:47 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,7 +33,7 @@ CREATE TABLE `landlords` (
   `lastname` varchar(120) NOT NULL,
   `username` varchar(120) NOT NULL,
   `email` varchar(120) NOT NULL,
-  `contact_no` int(10) NOT NULL,
+  `contact_no` bigint(20) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -42,8 +42,8 @@ CREATE TABLE `landlords` (
 --
 
 INSERT INTO `landlords` (`landlord_id`, `firstname`, `lastname`, `username`, `email`, `contact_no`, `password`) VALUES
-(1, 'sample', 'sample', 'sample', 'sampleuser@gmail.com', 2147483647, 'sampleuser'),
-(2, 'yash', 'yash', 'yash', 'yash@gmail.com', 2147483647, 'yashyash');
+(1, 'sample', 'sample', 'sample', 'sampleuser@gmail.com', 9582314675, 'sampleuser'),
+(2, 'yash', 'yash', 'yash', 'yash@gmail.com', 9885451274, 'yashyash');
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE `users` (
   `lastname` varchar(120) NOT NULL,
   `username` varchar(120) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `contact_no` int(10) NOT NULL,
+  `contact_no` bigint(20) NOT NULL,
   `password` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -117,9 +117,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `username`, `email`, `contact_no`, `password`) VALUES
-(2, 'Ram', 'Raju', 'Ram_raj', 'ram@gmail.com', 2147483647, 'ramaraju'),
-(3, 'asd', 'asd', 'asd', 'asd@gmail.com', 0, 'asdasdasd'),
-(6, 'arjun', 'arjun', 'arjun', 'arjun@gmail.com', 2147483647, 'arjunarjun');
+(2, 'Ram', 'Raju', 'Ram_raj', 'ram@gmail.com', 9685741235, 'ramaraju'),
+(3, 'asd', 'asd', 'asd', 'asd@gmail.com', 9856745124, 'asdasdasd'),
+(6, 'arjun', 'arjun', 'arjun', 'arjun@gmail.com', 9456823147, 'arjunarjun'),
+(7, 'test', 'test', 'test', 'test@gmail.com', 8574965896, 'testtest'),
+(8, 'robo', 'robo', 'robo', 'robo@gmail.com', 9876543212, 'roborobo');
 
 --
 -- Indexes for dumped tables
@@ -177,7 +179,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
