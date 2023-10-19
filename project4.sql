@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2023 at 07:47 AM
+-- Generation Time: Oct 19, 2023 at 09:20 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -123,6 +123,27 @@ INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `username`, `email`, `c
 (7, 'test', 'test', 'test', 'test@gmail.com', 8574965896, 'testtest'),
 (8, 'robo', 'robo', 'robo', 'robo@gmail.com', 9876543212, 'roborobo');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verification`
+--
+
+CREATE TABLE `verification` (
+  `verification_id` int(11) NOT NULL,
+  `property_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `passport_number` varchar(20) NOT NULL,
+  `us_since_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `verification`
+--
+
+INSERT INTO `verification` (`verification_id`, `property_id`, `user_id`, `passport_number`, `us_since_date`) VALUES
+(1, 10, 3, 'asd123asd123', '2022-11-19');
+
 --
 -- Indexes for dumped tables
 --
@@ -154,6 +175,14 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `verification`
+--
+ALTER TABLE `verification`
+  ADD PRIMARY KEY (`verification_id`),
+  ADD KEY `property_id` (`property_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -182,6 +211,12 @@ ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `verification`
+--
+ALTER TABLE `verification`
+  MODIFY `verification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -196,6 +231,13 @@ ALTER TABLE `properties`
 --
 ALTER TABLE `reports`
   ADD CONSTRAINT `reports_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Constraints for table `verification`
+--
+ALTER TABLE `verification`
+  ADD CONSTRAINT `verification_ibfk_1` FOREIGN KEY (`property_id`) REFERENCES `properties` (`property_id`),
+  ADD CONSTRAINT `verification_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
