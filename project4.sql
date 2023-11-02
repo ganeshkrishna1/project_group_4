@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2023 at 09:20 AM
+-- Generation Time: Nov 02, 2023 at 01:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `project4`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `billpayment`
+--
+
+CREATE TABLE `billpayment` (
+  `payment_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `property_id` int(11) DEFAULT NULL,
+  `payment_method` varchar(255) DEFAULT NULL,
+  `payment_data` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`payment_data`)),
+  `payment_status` varchar(255) DEFAULT NULL,
+  `payment_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `billpayment`
+--
+
+INSERT INTO `billpayment` (`payment_id`, `user_id`, `property_id`, `payment_method`, `payment_data`, `payment_status`, `payment_time`) VALUES
+(9, 2, 10, 'Credit/Debit Card', '{\"cardNo\":\"1233431212\",\"validity\":\"9/55\",\"expiry\":\"8/56\",\"cvv\":\"655\",\"cardHolderName\":\"Rama RaJ U\"}', 'Paid', '2023-11-02 12:18:07');
 
 -- --------------------------------------------------------
 
@@ -142,11 +165,20 @@ CREATE TABLE `verification` (
 --
 
 INSERT INTO `verification` (`verification_id`, `property_id`, `user_id`, `passport_number`, `us_since_date`) VALUES
-(1, 10, 3, 'asd123asd123', '2022-11-19');
+(1, 10, 3, 'asd123asd123', '2022-11-19'),
+(9, 10, 2, '1231231231', '2022-06-02');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `billpayment`
+--
+ALTER TABLE `billpayment`
+  ADD PRIMARY KEY (`payment_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `property_id` (`property_id`);
 
 --
 -- Indexes for table `landlords`
@@ -187,6 +219,12 @@ ALTER TABLE `verification`
 --
 
 --
+-- AUTO_INCREMENT for table `billpayment`
+--
+ALTER TABLE `billpayment`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `landlords`
 --
 ALTER TABLE `landlords`
@@ -214,11 +252,18 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `verification`
 --
 ALTER TABLE `verification`
-  MODIFY `verification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `verification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `billpayment`
+--
+ALTER TABLE `billpayment`
+  ADD CONSTRAINT `billpayment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `billpayment_ibfk_2` FOREIGN KEY (`property_id`) REFERENCES `properties` (`property_id`);
 
 --
 -- Constraints for table `properties`

@@ -31,7 +31,6 @@ function PropertyDetailsPage() {
   });
 
   useEffect(() => {
-    // Fetch property details from your backend
     axios
       .get(`http://localhost:8081/property/${propertyId}`)
       .then((response) => {

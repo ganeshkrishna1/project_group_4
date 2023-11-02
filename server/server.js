@@ -355,66 +355,6 @@ app.post('/pay', (req, res) => {
 });
 
 
-app.get('/verification/:userId/:propertyId', (req, res) => {
-  const userId = req.params.userId;
-  const propertyId = req.params.propertyId;
-  
-  // Check if a verification record already exists for the user and property
-  const selectQuery = 'SELECT * FROM verification WHERE user_id = ? AND property_id = ?';
-  con.query(selectQuery, [userId, propertyId], (selectErr, selectResult) => {
-    if (selectErr) {
-      console.error('Error checking existing verification:', selectErr);
-      return res.status(500).json({ error: 'Failed to check existing verification data.' });
-    }
-
-    if (selectResult.length > 0) {
-      // A verification record already exists; consider it verified
-      return res.status(200).json({ verificationStatus: 'Verified' });
-    } else {
-      // No existing verification record; verification is required
-      return res.status(200).json({ verificationStatus: 'Not Verified' });
-    }
-  });
-});
-
-
-app.get('/checkVerificationDetails', (req, res) => {
-  const { user_id, propertyId } = req.query;
-  const verificationQuery = 'SELECT COUNT(*) AS count FROM verification WHERE user_id = ? AND property_id = ?';
-  con.query(verificationQuery, [user_id, propertyId], (err, result) => {
-    if (err) {
-      console.error('Error checking verification details:', err);
-      return res.status(500).json({ error: 'Failed to check verification details.' });
-    }
-
-    // Check if a record exists
-    if (result[0].count > 0) {
-      res.status(200).json({ submitted: true });
-    } else {
-      res.status(200).json({ submitted: false });
-    }
-  });
-});
-
-app.get('/checkPaymentInfo', (req, res) => {
-  const { user_id, propertyId } = req.query;
-  const paymentQuery = 'SELECT COUNT(*) AS count FROM billpayment WHERE user_id = ? AND property_id = ?';
-  con.query(paymentQuery, [user_id, propertyId], (err, result) => {
-    if (err) {
-      console.error('Error checking payment information:', err);
-      return res.status(500).json({ error: 'Failed to check payment information.' });
-    }
-
-    // Check if a record exists
-    if (result[0].count > 0) {
-      res.status(200).json({ submitted: true });
-    } else {
-      res.status(200).json({ submitted: false });
-    }
-  });
-});
-
-
 app.get('/billpayment/:propertyId/:userId', (req, res) => {
   const propertyId = req.params.propertyId;
   const userId = req.params.userId;
