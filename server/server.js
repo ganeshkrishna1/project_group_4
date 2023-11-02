@@ -376,3 +376,65 @@ app.get('/verification/:userId/:propertyId', (req, res) => {
     }
   });
 });
+
+
+app.get('/checkVerificationDetails', (req, res) => {
+  const { user_id, propertyId } = req.query;
+  const verificationQuery = 'SELECT COUNT(*) AS count FROM verification WHERE user_id = ? AND property_id = ?';
+  con.query(verificationQuery, [user_id, propertyId], (err, result) => {
+    if (err) {
+      console.error('Error checking verification details:', err);
+      return res.status(500).json({ error: 'Failed to check verification details.' });
+    }
+
+    // Check if a record exists
+    if (result[0].count > 0) {
+      res.status(200).json({ submitted: true });
+    } else {
+      res.status(200).json({ submitted: false });
+    }
+  });
+});
+
+app.get('/checkPaymentInfo', (req, res) => {
+  const { user_id, propertyId } = req.query;
+  const paymentQuery = 'SELECT COUNT(*) AS count FROM billpayment WHERE user_id = ? AND property_id = ?';
+  con.query(paymentQuery, [user_id, propertyId], (err, result) => {
+    if (err) {
+      console.error('Error checking payment information:', err);
+      return res.status(500).json({ error: 'Failed to check payment information.' });
+    }
+
+    // Check if a record exists
+    if (result[0].count > 0) {
+      res.status(200).json({ submitted: true });
+    } else {
+      res.status(200).json({ submitted: false });
+    }
+  });
+});
+
+
+app.get('/billpayment/:propertyId/:userId', (req, res) => {
+  const propertyId = req.params.propertyId;
+  const userId = req.params.userId;
+  const query = 'SELECT payment_method, payment_data, payment_status, payment_time FROM billpayment WHERE property_Id = ? AND user_Id = ?';
+  con.query(query, [propertyId, userId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    } else if (result.length > 0) {
+      // If payment information is found, return it as a JSON response
+      const paymentInfo = {
+        paymentMethod: result[0].payment_method,
+        paymentData: result[0].payment_data,
+        paymentStatus: result[0].payment_status,
+        paymentTime: result[0].payment_time,
+      };
+      res.json(paymentInfo);
+    } else {
+      // If no payment information is found, return an appropriate response (e.g., not found)
+      res.status(404).json({ error: 'Payment information not found' });
+    }
+  });
+});
