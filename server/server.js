@@ -330,3 +330,49 @@ app.get('/seniorscontact', (req, res) => {
     res.json(result);
   });
 });
+
+app.post('/pay', (req, res) => {
+  const { user_id, propertyId, paymentMethod, paymentData } = req.body;
+  if (!user_id || !propertyId || !paymentMethod) {
+    return res.status(400).json({ error: 'User ID, property ID, and payment method are required.' });
+  }
+  const paymentStatus = 'Not Paid';
+  const insertQuery = 'INSERT INTO billpayment (user_id, property_id, payment_method, payment_data, payment_status) VALUES (?, ?, ?, ?, ?)';
+  con.query(insertQuery, [user_id, propertyId, paymentMethod, JSON.stringify(paymentData), paymentStatus], (err, result) => {
+    if (err) {
+      console.error('Error inserting payment data:', err);
+      return res.status(500).json({ error: 'Failed to store payment data.' });
+    }
+    const updatePaymentStatusQuery = 'UPDATE billpayment SET payment_status = ? WHERE user_id = ? AND property_id = ?';
+    con.query(updatePaymentStatusQuery, ['Paid', user_id, propertyId], (updateErr, updateResult) => {
+      if (updateErr) {
+        console.error('Error updating payment status:', updateErr);
+        return res.status(500).json({ error: 'Failed to update payment status.' });
+      }
+      res.status(200).json({ message: 'Payment data stored and status updated successfully', paymentStatus: 'Paid' });
+    });
+  });
+});
+
+
+app.get('/verification/:userId/:propertyId', (req, res) => {
+  const userId = req.params.userId;
+  const propertyId = req.params.propertyId;
+  
+  // Check if a verification record already exists for the user and property
+  const selectQuery = 'SELECT * FROM verification WHERE user_id = ? AND property_id = ?';
+  con.query(selectQuery, [userId, propertyId], (selectErr, selectResult) => {
+    if (selectErr) {
+      console.error('Error checking existing verification:', selectErr);
+      return res.status(500).json({ error: 'Failed to check existing verification data.' });
+    }
+
+    if (selectResult.length > 0) {
+      // A verification record already exists; consider it verified
+      return res.status(200).json({ verificationStatus: 'Verified' });
+    } else {
+      // No existing verification record; verification is required
+      return res.status(200).json({ verificationStatus: 'Not Verified' });
+    }
+  });
+});
