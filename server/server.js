@@ -337,7 +337,12 @@ app.post('/verify', (req, res) => {
 
 
 app.get('/seniorscontact', (req, res) => {
-  const sql = ` SELECT users.user_id, users.firstname, users.lastname, users.email, users.contact_no, verification.us_since_date FROM users INNER JOIN verification ON users.user_id = verification.user_id`;
+  const sql = `
+    SELECT users.user_id, MAX(users.firstname) AS firstname, MAX(users.lastname) AS lastname, MAX(users.email) AS email, MAX(users.contact_no) AS contact_no, MAX(verification.us_since_date) AS us_since_date
+    FROM users
+    INNER JOIN verification ON users.user_id = verification.user_id
+    GROUP BY users.user_id
+  `;
   con.query(sql, (err, result) => {
     if (err) {
       console.error('Error fetching seniors contact data:', err);
