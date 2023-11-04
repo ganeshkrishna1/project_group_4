@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2023 at 01:23 PM
+-- Generation Time: Nov 04, 2023 at 08:59 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,7 +42,7 @@ CREATE TABLE `billpayment` (
 --
 
 INSERT INTO `billpayment` (`payment_id`, `user_id`, `property_id`, `payment_method`, `payment_data`, `payment_status`, `payment_time`) VALUES
-(9, 2, 10, 'Credit/Debit Card', '{\"cardNo\":\"1233431212\",\"validity\":\"9/55\",\"expiry\":\"8/56\",\"cvv\":\"655\",\"cardHolderName\":\"Rama RaJ U\"}', 'Paid', '2023-11-02 12:18:07');
+(15, 3, 10, 'Credit/Debit Card', '{\"cardNo\":\"random\",\"validity\":\"12/12\",\"expiry\":\"21/21\",\"cvv\":\"123\",\"cardHolderName\":\"random rao\"}', 'Paid', '2023-11-04 07:59:29');
 
 -- --------------------------------------------------------
 
@@ -67,6 +67,28 @@ CREATE TABLE `landlords` (
 INSERT INTO `landlords` (`landlord_id`, `firstname`, `lastname`, `username`, `email`, `contact_no`, `password`) VALUES
 (1, 'sample', 'sample', 'sample', 'sampleuser@gmail.com', 9582314675, 'sampleuser'),
 (2, 'yash', 'yash', 'yash', 'yash@gmail.com', 9885451274, 'yashyash');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `notification_id` int(11) NOT NULL,
+  `sender_id` int(11) DEFAULT NULL,
+  `recipient_id` int(11) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `notification_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`notification_id`, `sender_id`, `recipient_id`, `message`, `notification_time`) VALUES
+(9, 3, 1, 'Verification completed for property Osama Property from asd.', '2023-11-04 07:59:16'),
+(10, 3, 1, 'Payment of 35 has been received for property Osama Property from asd.', '2023-11-04 07:59:29');
 
 -- --------------------------------------------------------
 
@@ -166,7 +188,13 @@ CREATE TABLE `verification` (
 
 INSERT INTO `verification` (`verification_id`, `property_id`, `user_id`, `passport_number`, `us_since_date`) VALUES
 (1, 10, 3, 'asd123asd123', '2022-11-19'),
-(9, 10, 2, '1231231231', '2022-06-02');
+(9, 10, 2, '1231231231', '2022-06-02'),
+(16, 13, 2, 'rqweq21231', '2021-02-04'),
+(17, 14, 2, 'asdasdas', '2023-11-02'),
+(18, 14, 2, '5598745@ASa', '2020-06-04'),
+(19, 13, 3, 'asdasdasd', '2019-07-04'),
+(20, 14, 3, 'ASG234AS', '2022-06-04'),
+(21, 10, 3, '25465A12', '2021-07-04');
 
 --
 -- Indexes for dumped tables
@@ -185,6 +213,14 @@ ALTER TABLE `billpayment`
 --
 ALTER TABLE `landlords`
   ADD PRIMARY KEY (`landlord_id`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`notification_id`),
+  ADD KEY `sender_id` (`sender_id`),
+  ADD KEY `recipient_id` (`recipient_id`);
 
 --
 -- Indexes for table `properties`
@@ -222,13 +258,19 @@ ALTER TABLE `verification`
 -- AUTO_INCREMENT for table `billpayment`
 --
 ALTER TABLE `billpayment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `landlords`
 --
 ALTER TABLE `landlords`
   MODIFY `landlord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `properties`
@@ -252,7 +294,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `verification`
 --
 ALTER TABLE `verification`
-  MODIFY `verification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `verification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
@@ -264,6 +306,13 @@ ALTER TABLE `verification`
 ALTER TABLE `billpayment`
   ADD CONSTRAINT `billpayment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `billpayment_ibfk_2` FOREIGN KEY (`property_id`) REFERENCES `properties` (`property_id`);
+
+--
+-- Constraints for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `landlords` (`landlord_id`);
 
 --
 -- Constraints for table `properties`

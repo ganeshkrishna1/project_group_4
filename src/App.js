@@ -7,6 +7,7 @@ import EditProperty from './components/Landlord/EditProperty';
 import Report from './components/Report/Report';
 import PropertyDetailsPage from './components/HomePage/PropertyDetailsPage';
 import SeniorsContact from './components/SeniorsContact/SeniorsContact';
+import Notification from './components/Landlord/Notification';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
@@ -26,6 +27,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/contact" element={<SeniorsContact />} />
+        <Route path="/notifications" element={<Notification />} />
+
       </Routes>
     </BrowserRouter>
   );

@@ -8,6 +8,8 @@ function PropertyDetailsPage() {
   const { propertyId } = useParams();
   const [propertyDetails, setPropertyDetails] = useState(null);
   const userId = localStorage.getItem('userId'); // Get user_id from localStorage
+  const [landlordId, setLandlordId] = useState(null); // Set the landlordId
+  const [userData, setUserData] = useState(null);
 
   const [passportNumber, setPassportNumber] = useState('');
   const [usSinceDate, setUsSinceDate] = useState('');
@@ -35,11 +37,26 @@ function PropertyDetailsPage() {
       .get(`http://localhost:8081/property/${propertyId}`)
       .then((response) => {
         setPropertyDetails(response.data);
+        setLandlordId(response.data.landlord_id); // Set the landlordId from property details
       })
       .catch((error) => {
         console.error(error);
       });
   }, [propertyId]);
+
+  useEffect(() => {
+    // Fetch user data based on userId
+    axios.get(`http://localhost:8081/users/${userId}`)
+      .then((response) => {
+        // Assuming your API response contains user data
+        const userData = response.data;
+        setUserData(userData);
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+      });
+  }, [userId]);
+
 
   // Handle changes in credit card details
 const handleCreditCardChange = (e) => {
@@ -88,6 +105,21 @@ useEffect(() => {
     });
 }, [propertyId, userId]);
 
+const sendNotificationToLandlord = (message) => {
+  axios
+    .post(`http://localhost:8081/notifyLandlord`, {
+      senderId: userId,
+      recipientId: landlordId, // You need to set the landlordId
+      message,
+    })
+    .then((response) => {
+      // Handle successful notification
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
   const handleVerificationSubmit = () => {
     // Perform client-side validation for passport number and US since date
     if (!passportNumber || !usSinceDate) {
@@ -107,6 +139,8 @@ useEffect(() => {
         setPaymentInfo({
           paymentStatus: 'Not Paid',
         });
+        sendNotificationToLandlord(`Verification completed for property ${propertyDetails.property_name} from ${userData.firstname}.`);
+
       })
       .catch((error) => {
         console.error(error);
@@ -135,6 +169,7 @@ useEffect(() => {
             ...paymentInfo,
             paymentStatus: 'Paid',
           });
+          sendNotificationToLandlord(`Payment of ${propertyDetails.rent} has been received for property ${propertyDetails.property_name} from ${userData.firstname}.`);
         })
         .catch((error) => {
           console.error(error);
@@ -152,6 +187,7 @@ useEffect(() => {
             ...paymentInfo,
             paymentStatus: 'Paid',
           });
+          sendNotificationToLandlord(`Payment of ${propertyDetails.rent} has been received for property ${propertyDetails.property_name} from ${userData.firstname}.`);
         })
         .catch((error) => {
           console.error(error);
@@ -169,6 +205,7 @@ useEffect(() => {
             ...paymentInfo,
             paymentStatus: 'Paid',
           });
+          sendNotificationToLandlord(`Payment of ${propertyDetails.rent} has been received for property ${propertyDetails.property_name} from ${userData.firstname}.`);
         })
         .catch((error) => {
           console.error(error);

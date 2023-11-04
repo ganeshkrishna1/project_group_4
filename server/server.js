@@ -186,6 +186,22 @@ app.delete('/propertiesdelete/:property_id', (req, res) => {
 });
 
 
+app.get('/users/:userId', (req, res) => {
+  const { userId } = req.params;
+  const sql = 'SELECT * FROM users WHERE user_id = ?';
+  con.query(sql, [userId], (err, result) => {
+    if (err) {
+      console.error('Error fetching users data:', err);
+      return res.status(500).json({ error: 'Failed to fetch users data.' });
+    }
+    if (result.length === 0) {
+      return res.status(404).json({ error: 'user not found.' });
+    }
+    const user = result[0];
+    res.json(user);
+  });
+});
+
 app.get('/properties/:property_id', (req, res) => {
   const propertyId = req.params.property_id;
   // Query the database to retrieve the property information based on property_id
@@ -376,5 +392,37 @@ app.get('/billpayment/:propertyId/:userId', (req, res) => {
       // If no payment information is found, return an appropriate response (e.g., not found)
       res.status(404).json({ error: 'Payment information not found' });
     }
+  });
+});
+
+
+app.post('/notifyLandlord', (req, res) => {
+  const { senderId, recipientId, message } = req.body;
+  if (!senderId || !recipientId || !message) {
+    return res.status(400).json({ error: 'Sender ID, recipient ID, and message are required.' });
+  }
+  // Assuming you have a 'notifications' table with fields: notification_id, sender_id, recipient_id, message, notification_time
+  const insertQuery = 'INSERT INTO notifications (sender_id, recipient_id, message, notification_time) VALUES (?, ?, ?, NOW())';
+
+  con.query(insertQuery, [senderId, recipientId, message], (err, result) => {
+    if (err) {
+      console.error('Error inserting notification data:', err);
+      return res.status(500).json({ error: 'Failed to store notification.' });
+    }
+    res.status(200).json({ message: 'Notification sent successfully' });
+  });
+});
+
+// Handle GET requests to retrieve landlord notifications
+app.get('/notifications/:recipientId', (req, res) => {
+  const recipientId = req.params.recipientId;
+  const selectQuery = 'SELECT * FROM notifications WHERE recipient_id = ? ORDER BY notification_time DESC';
+  con.query(selectQuery, [recipientId], (err, results) => {
+    if (err) {
+      console.error('Error retrieving notifications:', err);
+      return res.status(500).json({ error: 'Failed to retrieve notifications.' });
+    }
+
+    res.status(200).json(results);
   });
 });
