@@ -431,3 +431,64 @@ app.get('/notifications/:recipientId', (req, res) => {
     res.status(200).json(results);
   });
 });
+
+app.get('/getproblem',(req,res)=>{
+  const sql="SELECT * FROM problems";
+  con.query(sql,(err,result)=>{
+      if(err) return res,json({Error:"Got an error in the sql"});
+      return res.json({Status:"Success",Result:result})
+
+  })
+})
+
+app.post('/addproblem', (req, res) => {
+  // SQL query to insert new course details into the database
+  const sql = "INSERT INTO problems (`name`, `email`, `location`, `problem`, `solution`) VALUES (?)";
+  
+  // Values extracted from the incoming request
+  const values = [
+      req.body.name,
+      req.body.email,
+      req.body.location,
+      req.body.problem,
+      req.body.solution,
+  ];
+  
+  // Execute the query
+  con.query(sql, [values], (err, data) => {
+      // Error handling for the query
+      if(err) {
+          console.error("Error occurred during query execution:", err); // log the detailed error
+          return res.status(500).json({status: 'Error', message: 'Unable to add problem to the database.'});
+      }
+
+      // Return a success response if course details were inserted successfully
+      return res.status(200).json({status: 'Success', message: 'problem added successfully.', data: data});
+  });
+});
+
+
+
+app.put('/updatesolution/:id', (req, res) => {
+  const { id } = req.params;
+  const { solution } = req.body;
+
+  if (!id || !solution) {
+      return res.status(400).json({ success: false, message: 'ID and solution are required.' });
+  }
+
+  const sql = "UPDATE problems SET solution = ? WHERE id = ?";
+
+  con.query(sql, [solution, id], (err, results) => {
+      if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Database error' });
+      }
+
+      if (results.affectedRows === 0) {
+          return res.status(404).json({ success: false, message: 'Application not found.' });
+      }
+
+      res.status(200).json({ success: true, message: 'Solution updated successfully.' });
+  });
+});
