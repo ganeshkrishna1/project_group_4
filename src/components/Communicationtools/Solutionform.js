@@ -27,7 +27,8 @@ function SolutionForm() {
   
 
   return (<div>
-    <NavigationBar />
+    <NavigationBar /><center>
+      <br></br><br></br><br></br>
     <div className='p-1 rounded w-25 border addform'>
       <h1>Response Form</h1><br></br>
       <h4>Please Submit your response here</h4><br></br>
@@ -39,8 +40,9 @@ function SolutionForm() {
 /><br></br>
 
       <button className="btn btn-success" onClick={handleUpdateSolution}>Update Response</button>
-
+      
     </div>
+    </center>
     </div>
   );
 }

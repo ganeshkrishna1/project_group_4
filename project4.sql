@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2023 at 08:59 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Nov 29, 2023 at 06:22 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,10 @@ CREATE TABLE `billpayment` (
 --
 
 INSERT INTO `billpayment` (`payment_id`, `user_id`, `property_id`, `payment_method`, `payment_data`, `payment_status`, `payment_time`) VALUES
-(15, 3, 10, 'Credit/Debit Card', '{\"cardNo\":\"random\",\"validity\":\"12/12\",\"expiry\":\"21/21\",\"cvv\":\"123\",\"cardHolderName\":\"random rao\"}', 'Paid', '2023-11-04 07:59:29');
+(15, 3, 10, 'Credit/Debit Card', '{\"cardNo\":\"random\",\"validity\":\"12/12\",\"expiry\":\"21/21\",\"cvv\":\"123\",\"cardHolderName\":\"random rao\"}', 'Paid', '2023-11-04 07:59:29'),
+(16, 2, 14, 'UPI', '{\"phoneNumber\":\"112345666666667\"}', 'Paid', '2023-11-29 04:55:38'),
+(17, 2, 10, 'UPI', '{\"phoneNumber\":\"7671831838\"}', 'Paid', '2023-11-29 05:10:23'),
+(18, 2, 13, 'UPI', '{\"phoneNumber\":\"7671831838\"}', 'Paid', '2023-11-29 05:22:20');
 
 -- --------------------------------------------------------
 
@@ -88,7 +91,36 @@ CREATE TABLE `notifications` (
 
 INSERT INTO `notifications` (`notification_id`, `sender_id`, `recipient_id`, `message`, `notification_time`) VALUES
 (9, 3, 1, 'Verification completed for property Osama Property from asd.', '2023-11-04 07:59:16'),
-(10, 3, 1, 'Payment of 35 has been received for property Osama Property from asd.', '2023-11-04 07:59:29');
+(10, 3, 1, 'Payment of 35 has been received for property Osama Property from asd.', '2023-11-04 07:59:29'),
+(11, 2, 1, 'Verification completed for property Osama from Ram.', '2023-11-29 04:55:24'),
+(12, 2, 1, 'Payment of 600 has been received for property Osama from Ram.', '2023-11-29 04:55:38'),
+(13, 2, 1, 'Verification completed for property Osama Property from Ram.', '2023-11-29 05:10:17'),
+(14, 2, 1, 'Payment of 35 has been received for property Osama Property from Ram.', '2023-11-29 05:10:23'),
+(15, 2, 1, 'Verification completed for property Yahoo properties from Ram.', '2023-11-29 05:11:40'),
+(16, 2, 1, 'Verification completed for property Yahoo properties from Ram.', '2023-11-29 05:14:06'),
+(17, 2, 1, 'Payment of 50 has been received for property Yahoo properties from Ram.', '2023-11-29 05:22:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `problems`
+--
+
+CREATE TABLE `problems` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `problem` text DEFAULT NULL,
+  `solution` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `problems`
+--
+
+INSERT INTO `problems` (`id`, `name`, `email`, `location`, `problem`, `solution`) VALUES
+(4, 'Suresh', 'Suresh@virtusa.com', 'New Jersey', 'I need temporary accomadation in new jersey', 'Please Contact this number 123454');
 
 -- --------------------------------------------------------
 
@@ -194,7 +226,11 @@ INSERT INTO `verification` (`verification_id`, `property_id`, `user_id`, `passpo
 (18, 14, 2, '5598745@ASa', '2020-06-04'),
 (19, 13, 3, 'asdasdasd', '2019-07-04'),
 (20, 14, 3, 'ASG234AS', '2022-06-04'),
-(21, 10, 3, '25465A12', '2021-07-04');
+(21, 10, 3, '25465A12', '2021-07-04'),
+(22, 14, 2, 'Welcome123', '2023-11-15'),
+(23, 10, 2, '12345', '2023-11-30'),
+(24, 13, 2, '134552', '2023-11-22'),
+(25, 13, 2, '1323', '2023-11-21');
 
 --
 -- Indexes for dumped tables
@@ -221,6 +257,12 @@ ALTER TABLE `notifications`
   ADD PRIMARY KEY (`notification_id`),
   ADD KEY `sender_id` (`sender_id`),
   ADD KEY `recipient_id` (`recipient_id`);
+
+--
+-- Indexes for table `problems`
+--
+ALTER TABLE `problems`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `properties`
@@ -258,7 +300,7 @@ ALTER TABLE `verification`
 -- AUTO_INCREMENT for table `billpayment`
 --
 ALTER TABLE `billpayment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `landlords`
@@ -270,7 +312,13 @@ ALTER TABLE `landlords`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `problems`
+--
+ALTER TABLE `problems`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `properties`
@@ -294,7 +342,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `verification`
 --
 ALTER TABLE `verification`
-  MODIFY `verification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `verification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables

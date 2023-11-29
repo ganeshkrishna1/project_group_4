@@ -32,7 +32,7 @@ function Raiseproblem() {
   const handleSearch = (event) => {
     event.preventDefault();
     const filteredResults = originalData.filter((item) =>
-  item.problem.toLowerCase().includes(searchQuery.toLowerCase())
+  item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
   setData(filteredResults);
 

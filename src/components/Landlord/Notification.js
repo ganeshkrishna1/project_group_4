@@ -1,12 +1,15 @@
+
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './Notification.css'
+import './Notification.css'; 
 import LandlordNav from '../LandlordNav/LandlordNav';
+
 function NotificationsPage() {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const landlordId = localStorage.getItem('landlordId');
-  const lastViewedTime = localStorage.getItem('lastViewedTime'); // Assuming you store the last viewed time in localStorage
+  const lastViewedTime = localStorage.getItem('lastViewedTime');
 
   useEffect(() => {
     axios
@@ -15,7 +18,6 @@ function NotificationsPage() {
         const receivedNotifications = response.data;
         setNotifications(receivedNotifications);
 
-        // Calculate the number of unread notifications
         const newNotifications = receivedNotifications.filter(
           (notification) => new Date(notification.notification_time) > new Date(lastViewedTime)
         );
@@ -28,26 +30,27 @@ function NotificationsPage() {
 
   const markNotificationsAsRead = () => {
     const currentTime = new Date().toISOString();
-    localStorage.setItem('lastViewedTime', currentTime); // Update last viewed time in localStorage
-    setUnreadCount(0); // Reset unread count
+    localStorage.setItem('lastViewedTime', currentTime);
+    setUnreadCount(0);
   };
 
   return (
     <div>
-    <LandlordNav />
-    <div className="notifications-page">
-      <h1>Notifications ({unreadCount})</h1>
-      <ul>
-        {notifications.map((notification) => (
-          <li key={notification.notification_id}>
-            {notification.message}
-          </li>
-        ))}
-      </ul>
-      <button onClick={markNotificationsAsRead}>Mark as Read</button>
+      <LandlordNav />
+      <div className="notifications-page">
+        <h1 className="notifications-title">Notifications ({unreadCount})</h1>
+        <ul className="notifications-list">
+          {notifications.map((notification) => (
+            <li key={notification.notification_id} className="notification-item">
+              {notification.message}
+            </li>
+          ))}
+        </ul>
+        <button className="mark-as-read-button" onClick={markNotificationsAsRead}>
+          Mark as Read
+        </button>
+      </div>
     </div>
-    </div>
-
   );
 }
 

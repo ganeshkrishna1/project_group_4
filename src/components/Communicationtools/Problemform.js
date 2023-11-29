@@ -39,12 +39,15 @@ function Problemform() {
   return (
     <div className="body">
       <NavigationBar />
+      <div>
       <center>
-        <h2>Submit Your Request Here</h2>
+        <h2 className="heading">Submit Your Request Here</h2>
       </center>
-      <div className="d-flex justify-content-center align-items-center vh-100 addpage">
+      <div className="d-flex justify-content-center align-items-center addpage">
+
         <div className="p-1 rounded w-25 border addform">
           <form onSubmit={handleSubmit}>
+            
             <div className="mb-3">
               <input 
                 type="text"
@@ -95,7 +98,7 @@ function Problemform() {
           </form>
         </div>
       </div>
-</div>
+</div></div>
   );
 }
 

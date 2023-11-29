@@ -298,6 +298,7 @@ const sendNotificationToLandlord = (message) => {
                   />
                   Credit/Debit Card
                 </label>
+                <br></br>
                 <label>
                   <input
                     type="radio"
@@ -307,6 +308,7 @@ const sendNotificationToLandlord = (message) => {
                   />
                   UPI
                 </label>
+                <br></br>
                 <label>
                   <input
                     type="radio"
@@ -316,6 +318,7 @@ const sendNotificationToLandlord = (message) => {
                   />
                   Net Banking
                 </label>
+                <br></br>
               </div>
               {paymentInfo.paymentMethod === 'Credit/Debit Card' && (
                 <div className="credit-card-details">
@@ -355,7 +358,8 @@ const sendNotificationToLandlord = (message) => {
                     value={creditCardData.cardHolderName}
                     onChange={handleCreditCardChange}
                   />
-                  <button onClick={handlePaymentSubmit}>Pay</button>
+                  <br></br>
+                  <button className="Connect" onClick={handlePaymentSubmit}>Pay</button>
                 </div>
               )}
               {paymentInfo.paymentMethod === 'UPI' && (
@@ -368,7 +372,7 @@ const sendNotificationToLandlord = (message) => {
                     value={upiData.phoneNumber}
                     onChange={handleUpiChange}
                   />
-                  <button onClick={handlePaymentSubmit}>Pay</button>
+                  <button className="Connect" onClick={handlePaymentSubmit}>Pay</button>
                 </div>
               )}
               {paymentInfo.paymentMethod === 'Net Banking' && (
@@ -388,7 +392,7 @@ const sendNotificationToLandlord = (message) => {
                     value={netBankingData.accountNo}
                     onChange={handleNetBankingChange}
                   />
-                  <button onClick={handlePaymentSubmit}>Pay</button>
+                  <button className="Connect" onClick={handlePaymentSubmit}>Pay</button>
                 </div>
               )}
             </div>
