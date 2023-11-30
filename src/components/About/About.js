@@ -28,7 +28,7 @@ const About = () => {
      
       {userProfile ? (
         <div className="profile__main">
-          <div className="profile__info">Customer Info</div>
+          <div className="profile__info">Profile Info</div>
           <div className="info">
             <p>
               <b>Firstname:</b> <div>{userProfile.firstname}</div>
