@@ -10,6 +10,8 @@ import Notification from './components/Landlord/Notification';
 import Raiseproblem from './components/Communicationtools/Raiseproblem';
 import SolutionForm from './components/Communicationtools/Solutionform';
 import Problemform from './components/Communicationtools/Problemform';
+import About from './components/About/About';
+import Editabout from './components/About/Editabout';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
@@ -32,7 +34,8 @@ function App() {
         <Route path="/connectsolutionform/:id" element={<SolutionForm />} />
         <Route path="/connectproblemform" element={<Problemform />} />
         <Route path="/notifications" element={<Notification />} />
-
+        <Route path="/about" element={<About />} />
+        <Route path="/editabout/:userId" element={<Editabout />} />
       </Routes>
     </BrowserRouter>
   );

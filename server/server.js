@@ -492,3 +492,35 @@ app.put('/updatesolution/:id', (req, res) => {
       res.status(200).json({ success: true, message: 'Solution updated successfully.' });
   });
 });
+
+app.get('/users/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const sql = 'SELECT * FROM users WHERE user_id = ?';
+
+  con.query(sql, [userId], (error, results) => {
+    if (error) {
+      console.error('Error fetching user details from the database:', error);
+      res.status(500).json({ error: 'Database error' });
+    } else if (results.length === 0) {
+      res.status(404).json({ error: 'User not found' });
+    } else {
+      const user = results[0];
+      res.json(user);
+    }
+  });
+});
+
+app.put('/users/:userId', (req, res) => {
+  const userId = req.params.userId;  
+  const user = req.body;
+  const query = 'UPDATE users SET ? WHERE user_id = ?';
+
+  con.query(query, [user, userId], (err, result) => {
+    if (err) {
+      console.error('Database query error:', err);
+      res.status(500).json({ Status: 'Error', Message: 'Database error' });
+    } else {
+      res.json({ Status: 'Success' });
+    }
+  });
+});
